@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forgive Me?</title>
+  <style>
+    body { background: #1e1e2f; color: #fff; font-family: 'Segoe UI', sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; text-align: center; overflow: hidden; }
+    h1 { font-size: 2.5em; margin-bottom: 0.2em; }
+    p { max-width: 600px; font-size: 1.2em; line-height: 1.6; }
+    button { margin-top: 2em; padding: 0.8em 1.5em; font-size: 1em; background: #ff4d6d; border: none; border-radius: 8px; color: white; cursor: pointer; transition: background 0.3s; }
+    button:hover { background: #ff5e7e; }
+    #confetti { position: absolute; top:0; left:0; width:100vw; height:100vh; pointer-events:none; z-index:9999; }
+  </style>
+</head>
+<body>
+  <canvas id="confetti"></canvas>
+  <h1>Hey You... 🙏🏻😔💔🥀</h1>
+  <p>
+    I’m <strong>The One Who Screwed Up (aka Me)</strong>.<br>
+    I know I messed up badly — let emotions talk when I should have spoken from the heart.<br>
+    I said things I didn’t mean, and I regret it more than I can say.<br><br>
+    Our friendship means the world to me — more than any slide or message can explain.<br>
+    If you're reading this, I’m still hoping, still sorry, still your best friend (if you’ll have me).
+  </p>
+  <button onclick="celebrate()">Forgive Me?</button>
+
+  <script>
+    function celebrate() {
+      startConfetti();
+      alert("🥹 Thank you. Let’s start over. I missed you.");
+    }
+    const canvas = document.getElementById('confetti');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    let particles = [];
+    for (let i = 0; i < 100; i++) {
+      particles.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, speedY:Math.random()*3+2, radius:Math.random()*6+2, color:`hsl(${Math.random()*360},100%,70%)`});
+    }
+    function drawParticles() {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      for (let p of particles) {
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.radius,0,Math.PI*2);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+        p.y += p.speedY;
+        if (p.y > canvas.height) p.y = 0;
+      }
+      requestAnimationFrame(drawParticles);
+    }
+    function startConfetti() { drawParticles(); }
+  </script>
+</body>
+</html>
